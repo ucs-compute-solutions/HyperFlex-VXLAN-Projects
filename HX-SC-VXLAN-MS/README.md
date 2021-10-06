@@ -3,7 +3,7 @@
 ## Table of Contents
 * [Overview](Overview)
 * [Solution Topology](Solution-Topology)
-* [Solution Components & Versions](Solution-Components-&-Versions)
+* [Solution Components](Solution-Components)
 * [Prerequisites](Prerequisites)
 * [Terraform Scripts](Terraform-Scripts)
 * [Terraform Version](Terraform-Version)
@@ -36,7 +36,7 @@ A high level view of the solution topology is shown below.
 
 ![image](https://user-images.githubusercontent.com/24396268/136296649-4a5bad55-8278-4dd2-950f-05958a67980e.png)
 
-## Solution Components & Versions
+## Solution Components
 The software versions of the components validated in this solution are:  
 
 * Cisco HyperFlex Stretched Cluster: 4.0(2f)
@@ -61,28 +61,30 @@ The software versions of the components validated in this solution are:
 ## Terraform Scripts
 
 The Terraform plans in the solution directory: `HX-SC-VXLAN-MS` directory are summarized below. 
-```
-1. HXV-VXLAN-1-AddSwitch-SiteA.tf:
+
+
+1. `HXV-VXLAN-1-AddSwitch-SiteA.tf`:
    - Adds a leaf switch pair in Site-A as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-A  
-2. HXV-VXLAN-1-AddSwitch-SiteB.tf:  
+2. `HXV-VXLAN-1-AddSwitch-SiteB.tf`:  
    - Adds a leaf switch pair in Site-B as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-B
-3. HXV-VXLAN-2-SetupVPCLeafPair-SiteA.tf:
+3. `HXV-VXLAN-2-SetupVPCLeafPair-SiteA.tf`:
    - Sets up the access leaf switch pair in Site-A as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-A
-4. HXV-VXLAN-2-SetupVPCLeafPair-SiteB.tf:
+4. `HXV-VXLAN-2-SetupVPCLeafPair-SiteB.tf`:
    - Sets up the access leaf switch pair in Site-B as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-B
-5. HXV-VXLAN-3-AccessLayerConnectivity-SiteA.tf:
+5. `HXV-VXLAN-3-AccessLayerConnectivity-SiteA.tf`:
    - Enables access layer (vPC) connectivity from Site-A leaf switch pair to the Cisco UCS Fabric Interconncts in Site-A. 
-6. HXV-VXLAN-3-AccessLayerConnectivity-SiteB.tf:
+6. `HXV-VXLAN-3-AccessLayerConnectivity-SiteB.tf`:
    - Enables access layer (vPC) connectivity from Site-B leaf switch pair to the Cisco UCS Fabric Interconncts in Site-B. 
-7. HXV-VXLAN-4-ConfigInfraTenant-VRF.tf:
+7. `HXV-VXLAN-4-ConfigInfraTenant-VRF.tf`:
    - Creates Infrastructure Tenant to enable infrastructure connectivity for the HyperFlex Stretched cluster that spans two DC sites. 
-8. HXV-VXLAN-5-ConfigInfraTenant-NET[1-3].tf:
+8. `HXV-VXLAN-5-ConfigInfraTenant-NET[1-3].tf`:
    - Provisions Infrastructure networks (In-Band Mgmt., Storage Data, and vMotion) for the HyperFlex stretched cluster across DC sites. 
    - Enables connectivity between sites for the above networks
    - Enables external connectivity from the In-band mgmt. network to VMware vCenter and HyperFlex Witness outside the fabric (3rd site).
-9. HXV-VXLAN-6-DeployInfraTenant-NET.tf:
+9. `HXV-VXLAN-6-DeployInfraTenant-NET.tf`:
    - Deploys the networks to enable the connectivity provisioned in Step 8 above. 
 
+```
 Note: 
 - TF Plans [1] through [9] must be complete before starting the HyperFlex stretched cluster installation.
 - TF Plans [7] through [9] can be repeated to create the Application Tenant and corresponding networks. 
@@ -98,6 +100,7 @@ Terraform v0.15.5
 ## Terraform Providers
 
 The Terraform Providers used by the Terraform scripts are: 
+
 ```
 terraform {
   required_providers {
@@ -135,14 +138,14 @@ Define the variables that should be used to configure the VXLAN fabric in a `var
 
 1. **Terraform Init**
 
-- The _init_ command is used to initialize the Terraform environment for the script being run. Any additional provider modules, such as the Cisco DCNM provider, are downloaded and all prerequisites are checked. This initialization only needs to be run once per script, and subsequent runs only need to execute plan and apply.   
+- The `_init_` command is used to initialize the Terraform environment for the script being run. Any additional provider modules, such as the Cisco DCNM provider, are downloaded and all prerequisites are checked. This initialization only needs to be run once per script, and subsequent runs only need to execute plan and apply.   
 - To initialize the environment, via the CLI change to the `HyperFlex-VXLAN-Projects` folder where the GitHub repository was cloned, then execute:
 ```
 terraform init
 ```
 2. **Terraform Plan**
 
-- The _plan_ command is used to evaluate the Terraform script for any syntax errors or other problems. The script will be evaluated against the existing environment and a list of planned actions will be shown. If there are no errors and the planned actions appear correct, then it is safe to proceed to running the apply command in the next step. 
+- The `_plan_` command is used to evaluate the Terraform script for any syntax errors or other problems. The script will be evaluated against the existing environment and a list of planned actions will be shown. If there are no errors and the planned actions appear correct, then it is safe to proceed to running the apply command in the next step. 
 
 - To evaluate the Terraform plan, via the CLI change to the `HyperFlex-VXLAN-Projects` folder where the GitHub repository was cloned, then execute:
 ```
@@ -156,7 +159,7 @@ terraform plan HXV-VXLAN-3-ConfigInfraTenant-NET.tf
 ```
 3. **Terraform Apply**
 
-- The _apply_ command will deploy the new configuration. This command will repeat the planning phase and then ask for confirmation to continue with creating the new resources. 
+- The `_apply_` command will deploy the new configuration. This command will repeat the planning phase and then ask for confirmation to continue with creating the new resources. 
 - To execute the Terraform plan, via the CLI change to the `HyperFlex-VXLAN-Projects` folder where the GitHub repository was cloned, then execute:
 ```
 terraform apply HXV-VXLAN-0-Providers.tf
