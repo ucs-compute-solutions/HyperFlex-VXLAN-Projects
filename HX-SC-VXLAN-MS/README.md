@@ -78,15 +78,24 @@ HXV-VXLAN-6-DeployInfraTenant-NET.tf
 
 The provisioning implemented in the above TF plans are summarized below. 
 
-1. **HXV-VXLAN-1-AddSwitch-SiteA.tf**: Adds a leaf switch pair in Site-A as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-A  
-2. **HXV-VXLAN-1-AddSwitch-SiteB.tf**: Adds a leaf switch pair in Site-B as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-B
-3. **HXV-VXLAN-2-SetupVPCLeafPair-SiteA.tf**: Sets up the access leaf switch pair in Site-A as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-A
-4. **HXV-VXLAN-2-SetupVPCLeafPair-SiteB.tf**: Sets up the access leaf switch pair in Site-B as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-B
-5. **HXV-VXLAN-3-AccessLayerConnectivity-SiteA.tf**: Enables access layer (vPC) connectivity from Site-A leaf switch pair to the Cisco UCS Fabric Interconncts in Site-A. 
-6. **HXV-VXLAN-3-AccessLayerConnectivity-SiteB.tf**: Enables access layer (vPC) connectivity from Site-B leaf switch pair to the Cisco UCS Fabric Intrconncts in Site-B. 
-7. **HXV-VXLAN-4-ConfigInfraTenant-VRF.tf**: Creates Infrastructure Tenant to enable infrastructure connectivity for the HyperFlex Stretched cluster that spans two DC sites. 
-8. **HXV-VXLAN-5-ConfigInfraTenant-NET[1-3].tf**: Provisions Infrastructure networks (In-Band Mgmt., Storage Data, and vMotion) for the HyperFlex stretched cluster and enables connectivity between sites for these networks. Also enables external connectivity from the In-band mgmt. network to VMware vCenter and HyperFlex Witness outside the fabric (3rd site).
-9. **HXV-VXLAN-6-DeployInfraTenant-NET.tf**: Deploys the networks to enable the connectivity provisioned in Step 8 above. 
+1. **HXV-VXLAN-1-AddSwitch-SiteA.tf**: 
+Adds a pair of leaf switches to the VXLAN fabric in Site-A as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-A  
+2. **HXV-VXLAN-1-AddSwitch-SiteB.tf**: 
+Adds a pair of leaf switches to the VXLAN fabric in Site-B as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-B
+3. **HXV-VXLAN-2-SetupVPCLeafPair-SiteA.tf**: 
+Sets up the access leaf switch pair in Site-A as virtual port-channel (vPC) peers for connecting to Cisco UCS Cisco UCS Fabric Interconnects in Site-A
+4. **HXV-VXLAN-2-SetupVPCLeafPair-SiteB.tf**: 
+Sets up the access leaf switch pair in Site-B as virtual port-channel (vPC) peers for connecting to Cisco UCS Cisco UCS Fabric Interconnects in Site-B
+5. **HXV-VXLAN-3-AccessLayerConnectivity-SiteA.tf**: 
+Enables access layer (vPC) connectivity from Site-A leaf switch pair to the Cisco UCS Fabric Interconnects in Site-A. 
+6. **HXV-VXLAN-3-AccessLayerConnectivity-SiteB.tf**: 
+Enables access layer (vPC) connectivity from Site-B leaf switch pair to the Cisco UCS Fabric Interconnects in Site-B. 
+7. **HXV-VXLAN-4-ConfigInfraTenant-VRF.tf**: 
+Creates Infrastructure Tenant to enable infrastructure connectivity for the HyperFlex Stretched cluster that spans two DC sites. 
+8. **HXV-VXLAN-5-ConfigInfraTenant-NET[1-3].tf**: 
+Provisions Infrastructure networks (In-Band Mgmt., Storage Data, and vMotion) for the HyperFlex stretched cluster and enables connectivity between sites for these networks. Also enables external connectivity from the In-band mgmt. network to VMware vCenter and HyperFlex Witness outside the fabric (3rd site).
+9. **HXV-VXLAN-6-DeployInfraTenant-NET.tf**: 
+Deploys the networks to enable the connectivity provisioned in Step 8 above. 
 
 ```
 Note: 
