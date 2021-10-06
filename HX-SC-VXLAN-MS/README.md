@@ -60,29 +60,33 @@ The software versions of the components validated in this solution are:
    
 ## Terraform Scripts
 
-The Terraform plans in the solution directory: `HX-SC-VXLAN-MS` directory are summarized below. 
+The following Terraform plans are in the solution directory: `HX-SC-VXLAN-MS`. 
+```
+HXV-VXLAN-0-Providers.tf
+HXV-VXLAN-1-AddSwitch-SiteA.tf
+HXV-VXLAN-1-AddSwitch-SiteB.tf
+HXV-VXLAN-2-SetupVPCLeafPair-SiteA.tf
+HXV-VXLAN-2-SetupVPCLeafPair-SiteB.tf
+HXV-VXLAN-3-AccessLayerConnectivity-SiteA.tf
+HXV-VXLAN-3-AccessLayerConnectivity-SiteB.tf
+HXV-VXLAN-4-ConfigInfraTenant-VRF.tf
+HXV-VXLAN-5-ConfigInfraTenant-NET1.tf
+HXV-VXLAN-5-ConfigInfraTenant-NET2.tf
+HXV-VXLAN-5-ConfigInfraTenant-NET3.tf
+HXV-VXLAN-6-DeployInfraTenant-NET.tf
+```
 
+The provisioning implemented in the above TF plans are summarized below. 
 
-1. `HXV-VXLAN-1-AddSwitch-SiteA.tf`:
-   - Adds a leaf switch pair in Site-A as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-A  
-2. `HXV-VXLAN-1-AddSwitch-SiteB.tf`:  
-   - Adds a leaf switch pair in Site-B as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-B
-3. `HXV-VXLAN-2-SetupVPCLeafPair-SiteA.tf`:
-   - Sets up the access leaf switch pair in Site-A as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-A
-4. `HXV-VXLAN-2-SetupVPCLeafPair-SiteB.tf`:
-   - Sets up the access leaf switch pair in Site-B as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-B
-5. `HXV-VXLAN-3-AccessLayerConnectivity-SiteA.tf`:
-   - Enables access layer (vPC) connectivity from Site-A leaf switch pair to the Cisco UCS Fabric Interconncts in Site-A. 
-6. `HXV-VXLAN-3-AccessLayerConnectivity-SiteB.tf`:
-   - Enables access layer (vPC) connectivity from Site-B leaf switch pair to the Cisco UCS Fabric Interconncts in Site-B. 
-7. `HXV-VXLAN-4-ConfigInfraTenant-VRF.tf`:
-   - Creates Infrastructure Tenant to enable infrastructure connectivity for the HyperFlex Stretched cluster that spans two DC sites. 
-8. `HXV-VXLAN-5-ConfigInfraTenant-NET[1-3].tf`:
-   - Provisions Infrastructure networks (In-Band Mgmt., Storage Data, and vMotion) for the HyperFlex stretched cluster across DC sites. 
-   - Enables connectivity between sites for the above networks
-   - Enables external connectivity from the In-band mgmt. network to VMware vCenter and HyperFlex Witness outside the fabric (3rd site).
-9. `HXV-VXLAN-6-DeployInfraTenant-NET.tf`:
-   - Deploys the networks to enable the connectivity provisioned in Step 8 above. 
+1. `HXV-VXLAN-1-AddSwitch-SiteA.tf`: Adds a leaf switch pair in Site-A as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-A  
+2. `HXV-VXLAN-1-AddSwitch-SiteB.tf`: Adds a leaf switch pair in Site-B as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-B
+3. `HXV-VXLAN-2-SetupVPCLeafPair-SiteA.tf`: Sets up the access leaf switch pair in Site-A as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-A
+4. `HXV-VXLAN-2-SetupVPCLeafPair-SiteB.tf`: Sets up the access leaf switch pair in Site-B as virtual port-channel (vPC) peers for connecting to Cisco UCS FIs in Site-B
+5. `HXV-VXLAN-3-AccessLayerConnectivity-SiteA.tf`: Enables access layer (vPC) connectivity from Site-A leaf switch pair to the Cisco UCS Fabric Interconncts in Site-A. 
+6. `HXV-VXLAN-3-AccessLayerConnectivity-SiteB.tf`: Enables access layer (vPC) connectivity from Site-B leaf switch pair to the Cisco UCS Fabric Interconncts in Site-B. 
+7. `HXV-VXLAN-4-ConfigInfraTenant-VRF.tf`: Creates Infrastructure Tenant to enable infrastructure connectivity for the HyperFlex Stretched cluster that spans two DC sites. 
+8. `HXV-VXLAN-5-ConfigInfraTenant-NET[1-3].tf`: Provisions Infrastructure networks (In-Band Mgmt., Storage Data, and vMotion) for the HyperFlex stretched cluster and enables connectivity between sites for these networks. Also enables external connectivity from the In-band mgmt. network to VMware vCenter and HyperFlex Witness outside the fabric (3rd site).
+9. `HXV-VXLAN-6-DeployInfraTenant-NET.tf`: Deploys the networks to enable the connectivity provisioned in Step 8 above. 
 
 ```
 Note: 
@@ -149,30 +153,20 @@ terraform init
 
 - To evaluate the Terraform plan, via the CLI change to the `HyperFlex-VXLAN-Projects` folder where the GitHub repository was cloned, then execute:
 ```
-terraform plan HXV-VXLAN-0-Providers.tf
-terraform plan HXV-VXLAN-1-AddSwitch-SiteA.tf
-terraform plan HXV-VXLAN-1-AddSwitch-SiteB.tf
-terraform plan HXV-VXLAN-2-AccessLayerConnectivity-SiteA.tf
-terraform plan HXV-VXLAN-2-AccessLayerConnectivity-SiteB.tf
-terraform plan HXV-VXLAN-3-ConfigInfraTenant-VRF.tf
-terraform plan HXV-VXLAN-3-ConfigInfraTenant-NET.tf
+terraform plan 
+
 ```
 3. **Terraform Apply**
 
 - The `_apply_` command will deploy the new configuration. This command will repeat the planning phase and then ask for confirmation to continue with creating the new resources. 
 - To execute the Terraform plan, via the CLI change to the `HyperFlex-VXLAN-Projects` folder where the GitHub repository was cloned, then execute:
 ```
-terraform apply HXV-VXLAN-0-Providers.tf
-terraform apply HXV-VXLAN-1-AddSwitch-SiteA.tf
-terraform apply HXV-VXLAN-1-AddSwitch-SiteB.tf
-terraform apply HXV-VXLAN-2-AccessLayerConnectivity-SiteA.tf
-terraform apply HXV-VXLAN-2-AccessLayerConnectivity-SiteB.tf
-terraform apply HXV-VXLAN-3-ConfigInfraTenant-VRF.tf
-terraform apply HXV-VXLAN-3-ConfigInfraTenant-NET.tf
+terraform apply 
 ```
 
 ## Resources
-For more information, see: 
 ```
+For more information, see: 
+
 * [Cisco DCNM Provider](https://registry.terraform.io/providers/CiscoDevNet/dcnm/latest)
 ```
