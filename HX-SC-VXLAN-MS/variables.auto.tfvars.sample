@@ -1,0 +1,195 @@
+# -------------------------------------------------------------------------
+#  Access Info for Cisco DCNM 
+# -------------------------------------------------------------------------
+
+hxv_vxlan_dcnm = {
+  usr = "admin"
+  pwd = "<Enter_DCNM_Password>"
+  #url = "https://<dcnm_hostname_or_ip>/"
+  url = "https://192.168.160.140/"
+}
+
+#---------------------------------------------------------------------------------------------
+# Variables for adding a leaf switch pair in Site-A and Site-B of the VXLAN Multi-Site Fabric
+#---------------------------------------------------------------------------------------------
+
+# Variables for adding a pair of switches to the VXLAN Fabric in Site-A
+hxv_vxlan_siteA_switch = {
+  fabric_name     = "Site-A"
+  username        = "admin"
+  password        = "<Enter_Switch_Password>"
+  max_hops        = 0
+  preserve_config = "false"
+  auth_protocol   = 0
+  config_timeout  = 5
+}
+
+# First Switch in the switch pair - Site-A
+hxv_vxlan_siteA_switch1 = {
+  ip   = "172.26.163.227"
+  role = "leaf"
+}
+# Second Switch in the switch pair - Site-A
+hxv_vxlan_siteA_switch2 = {
+  ip   = "172.26.163.228"
+  role = "leaf"
+}
+
+# Variables for adding a pair of switches to the VXLAN Fabric in Site-B
+hxv_vxlan_siteB_switch = {
+  fabric_name = "Site-B"
+  username        = "admin"
+  password        = "<Enter_Switch_Password>"
+  max_hops        = 0
+  preserve_config = "false"
+  auth_protocol   = 0
+  config_timeout  = 5
+}
+
+# First Switch in the switch pair - Site-B
+hxv_vxlan_siteB_switch1 = {
+  ip   = "172.26.164.227"
+  role = "leaf"
+}
+# Second Switch in the switch pair - Site-B
+hxv_vxlan_siteB_switch2 = {
+  ip   = "172.26.164.228"
+  role = "leaf"
+}
+
+#---------------------------------------------------------------------------------------------
+# Variables for setting up the leaf switch pair as vPC peers in Site-A and Site-B
+#---------------------------------------------------------------------------------------------
+
+hxv_vxlan_siteA_vPC_Pair = {
+  peerOneId = "<Enter_SerialNumber>"
+  peerTwoId = "<Enter_SerialNumber>"
+}
+
+hxv_vxlan_siteB_vPC_Pair = {
+  peerOneId = "<Enter_SerialNumber>"
+  peerTwoId = "<Enter_SerialNumber>"
+}
+
+#------------------------------------------------------------------------------------------------
+# Variables for setting up access layer (vPC) connectivity to UCS Fabric Interconnects in Site-A 
+#------------------------------------------------------------------------------------------------
+
+hxv_vxlan_siteA_Switch1_Access = {
+  type                      = "vpc"
+  name                      = "vPC121"
+  vpc_peer1_id              = "121"
+  vpc_peer2_id              = "121"
+  vpc_peer1_interface       = ["e1/49"]
+  vpc_peer2_interface       = ["e1/49"]
+  vpc_peer1_desc            = "vPC to AA07-HXV1-6300-FI-A"
+  vpc_peer2_desc            = "vPC to AA07-HXV1-6300-FI-B"
+}
+
+hxv_vxlan_siteA_Switch2_Access = {
+  type                      = "vpc"
+  name                      = "vPC122"
+  vpc_peer1_id              = "122"
+  vpc_peer2_id              = "122"
+  vpc_peer1_interface       = ["e1/50"]
+  vpc_peer2_interface       = ["e1/50"]
+  vpc_peer1_desc            = "vPC to AA07-HXV1-6300-FI-A"
+  vpc_peer2_desc            = "vPC to AA07-HXV1-6300-FI-B"
+}
+
+#------------------------------------------------------------------------------------------------
+# Variables for setting up access layer (vPC) connectivity to UCS Fabric Interconnects in Site-B 
+#------------------------------------------------------------------------------------------------
+
+hxv_vxlan_siteB_Switch1_Access = {
+  type                      = "vpc"
+  name                      = "vPC221"
+  vpc_peer1_id              = "221"
+  vpc_peer2_id              = "221"
+  vpc_peer1_interface       = ["e1/49"]
+  vpc_peer2_interface       = ["e1/49"]
+  vpc_peer1_desc            = "vPC to AA07-HXV2-6300-FI-A"
+  vpc_peer2_desc            = "vPC to AA07-HXV2-6300-FI-B"
+}
+
+hxv_vxlan_siteB_Switch2_Access = {
+  type                      = "vpc"
+  name                      = "vPC222"
+  vpc_peer1_id              = "222"
+  vpc_peer2_id              = "222"
+  vpc_peer1_interface       = ["e1/50"]
+  vpc_peer2_interface       = ["e1/50"]
+  vpc_peer1_desc            = "vPC to AA07-HXV2-6300-FI-A"
+  vpc_peer2_desc            = "vPC to AA07-HXV2-6300-FI-B"
+}
+
+#------------------------------------------------------------
+# Variables for creating and deploying Infrastructure Tenant 
+#------------------------------------------------------------
+
+hxv_vxlan_Infra_Tenant = {
+  fabric   = "MSD_Fabric_East" 
+  vrfName  = "HXV-Foundation_VRF" 
+}
+
+hxv_vxlan_VRF_Attach_SiteA = {
+  Leaf_1_SN           = "<Enter_SerialNumber>"
+  Leaf_2_SN           = "<Enter_SerialNumber>"
+  BGW_1_SN            = "<Enter_SerialNumber>" 
+  BGW_2_SN            = "<Enter_SerialNumber>" 
+  BorderLeaf_1_SN     = "<Enter_SerialNumber>" 
+  BorderLeaf_2_SN     = "<Enter_SerialNumber>"
+}
+
+hxv_vxlan_VRF_Attach_SiteB = {
+  Leaf_1_SN           = "<Enter_SerialNumber>"
+  Leaf_2_SN           = "<Enter_SerialNumber>"
+  BGW_1_SN            = "<Enter_SerialNumber>" 
+  BGW_2_SN            = "<Enter_SerialNumber>" 
+  BorderLeaf_1_SN     = "<Enter_SerialNumber>" 
+  BorderLeaf_2_SN     = "<Enter_SerialNumber>"
+}
+
+#---------------------------------------------------------------------
+# Variables for creating and deploying Infrastructure Tenant Networks 
+#---------------------------------------------------------------------
+
+hxv_vxlan_IBMGMT_NET = {
+  networkName        = "HXV-IB-MGMT_NET"
+  gatewayIpAddress   = "10.1.167.254/24" 
+  vlanId             = "118"
+  suppressArp        = true
+}
+
+hxv_vxlan_StorageData_NET = {
+  networkName        = "HXV-CL1-StorageData_NET"
+  isLayer2Only       = true
+  vlanId             = "3218"
+}
+
+hxv_vxlan_vMotion_NET = {
+  networkName        = "HXV-vMotion_NET"
+  isLayer2Only       = true
+  vlanId             = "3018"
+}
+
+hxv_vxlan_NET_Attach_SiteA = {
+  switchPorts         = "Port-channel121,Port-channel122"
+  Leaf_1_SN           = "<Enter_SerialNumber>"
+  Leaf_2_SN           = "<Enter_SerialNumber>"
+  BGW_1_SN            = "<Enter_SerialNumber>" 
+  BGW_2_SN            = "<Enter_SerialNumber>" 
+  BorderLeaf_1_SN     = "<Enter_SerialNumber>" 
+  BorderLeaf_2_SN     = "<Enter_SerialNumber>"
+}
+
+hxv_vxlan_NET_Attach_SiteB = {
+  switchPorts         = "Port-channel221,Port-channel222"
+  Leaf_1_SN           = "<Enter_SerialNumber>"
+  Leaf_2_SN           = "<Enter_SerialNumber>"
+  BGW_1_SN            = "<Enter_SerialNumber>" 
+  BGW_2_SN            = "<Enter_SerialNumber>" 
+  BorderLeaf_1_SN     = "<Enter_SerialNumber>" 
+  BorderLeaf_2_SN     = "<Enter_SerialNumber>"
+}
+  
