@@ -34,7 +34,7 @@ The Terraform plans provision the following aspects of the solution:
 
 A high level view of the solution topology is shown below. 
 
-![image](https://user-images.githubusercontent.com/24396268/127541945-00e9d981-cbca-406c-8a4b-28a4a861559d.png)
+![image](<img width="851" alt="image" src="https://user-images.githubusercontent.com/24396268/136296649-4a5bad55-8278-4dd2-950f-05958a67980e.png">)
 
 ## Solution Software
 The software versions of the components validated in this solution are:  
