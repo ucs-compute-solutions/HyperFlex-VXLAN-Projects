@@ -3,7 +3,7 @@
 ## Table of Contents
 * [Overview](Overview)
 * [Solution Topology](Solution-Topology)
-* [Solution Software](Solution-Software)
+* [Solution Components & Versions](Solution-Components-&-Versions)
 * [Prerequisites](Prerequisites)
 * [Terraform Scripts](Terraform-Scripts)
 * [Terraform Version](Terraform-Version)
@@ -36,7 +36,7 @@ A high level view of the solution topology is shown below.
 
 ![image](https://user-images.githubusercontent.com/24396268/136296649-4a5bad55-8278-4dd2-950f-05958a67980e.png)
 
-## Solution Software
+## Solution Components & Versions
 The software versions of the components validated in this solution are:  
 
 * Cisco HyperFlex Stretched Cluster: 4.0(2f)
@@ -61,7 +61,7 @@ The software versions of the components validated in this solution are:
 ## Terraform Scripts
 
 The Terraform plans in the solution directory: `HX-SC-VXLAN-MS` directory are summarized below. 
-
+```
 1. HXV-VXLAN-1-AddSwitch-SiteA.tf:
    - Adds a leaf switch pair in Site-A as access/ToR switches for the Cisco UCS domain and HyperFlex servers in Site-A  
 2. HXV-VXLAN-1-AddSwitch-SiteB.tf:  
@@ -80,12 +80,13 @@ The Terraform plans in the solution directory: `HX-SC-VXLAN-MS` directory are su
    - Provisions Infrastructure networks (In-Band Mgmt., Storage Data, and vMotion) for the HyperFlex stretched cluster across DC sites. 
    - Enables connectivity between sites for the above networks
    - Enables external connectivity from the In-band mgmt. network to VMware vCenter and HyperFlex Witness outside the fabric (3rd site).
-9. HXV-VXLAN-6-ConfigInfraTenant-NET.tf:
+9. HXV-VXLAN-6-DeployInfraTenant-NET.tf:
    - Deploys the networks to enable the connectivity provisioned in Step 8 above. 
 
 Note: 
-- TF Plans [1] through [8] must be complete before starting the HyperFlex stretched cluster installation.
-- TF Plans [7] and [8] can be repeated to create the Application Tenant and tenant networks. 
+- TF Plans [1] through [9] must be complete before starting the HyperFlex stretched cluster installation.
+- TF Plans [7] through [9] can be repeated to create the Application Tenant and corresponding networks. 
+```
 
 ## Terraform Version
 
@@ -104,13 +105,12 @@ terraform {
       source = "CiscoDevNet/dcnm"
       version = "1.0.0"
     }
-    # vsphere = {
-     # source = "hashicorp/vsphere"
-     # version = "2.0.0"
-    # 
+    provider "time" {
+      # Configuration options
     }
   }
 }
+```
 
 ##  Solution Deployment 
 
@@ -129,7 +129,7 @@ To clone the GitHub collection, complete the following steps from the management
 
 ### Update Variables
 
-Define the variables that should be used to configure the VXLAN fabric in the `variables.auto.tfvars` file. In Terraform, the variables are declared in the `variables.tf` file. The values for these variables are then specified in a separate file called `variables.auto.tfvars`. 
+Define the variables that should be used to configure the VXLAN fabric in a `variables.auto.tfvars` file. In Terraform, the variables are declared in the `variables.tf` file and the values for the variables are  specified in a separate file called `variables.auto.tfvars`. A sample file with the parameters used in this solution are provided as a reference. 
 
 ### Execute Terraform Plans
 
@@ -170,4 +170,6 @@ terraform apply HXV-VXLAN-3-ConfigInfraTenant-NET.tf
 
 ## Resources
 For more information, see: 
+```
 * [Cisco DCNM Provider](https://registry.terraform.io/providers/CiscoDevNet/dcnm/latest)
+```
