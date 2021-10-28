@@ -173,8 +173,7 @@ terraform apply
 ```
 
 ## Resources
-```
+
 For more information, see: 
 
 * [Cisco DCNM Provider](https://registry.terraform.io/providers/CiscoDevNet/dcnm/latest)
-```
